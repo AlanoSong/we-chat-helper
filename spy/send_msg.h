@@ -1,8 +1,6 @@
 #pragma once
 #include "common.h"
 
-extern SOCKET g_sendSock;
-
 const unsigned long long SEND_MSG_OFFSET = 0x00000000022D4A90;
 
 typedef __int64(__fastcall* PFN_SEND_MSG)(

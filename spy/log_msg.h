@@ -2,8 +2,6 @@
 
 #include "common.h"
 
-extern SOCKET g_sendSock;
-
 const unsigned long long LOG_MSG_OFFSET = 0x0000000002627590;
 
 typedef char* (__fastcall* PFN_LOG_MSG)(

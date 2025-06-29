@@ -1,8 +1,6 @@
 #pragma once
 #include "common.h"
 
-extern SOCKET g_sendSock;
-
 const unsigned long long RECV_MSG_OFFSET = 0x000000000214C6C0;
 
 #define RECV_MSG_ID_OFFSET          0x30
