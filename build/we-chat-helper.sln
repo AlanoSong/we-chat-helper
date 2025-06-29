@@ -1,0 +1,67 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.14.36121.58
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "helper", "..\helper\helper.vcxproj", "{071F2998-347E-4D23-A71A-33739FE0BF89}"
+	ProjectSection(ProjectDependencies) = postProject
+		{2F5E24AE-0233-4B68-9F64-502DE1154B55} = {2F5E24AE-0233-4B68-9F64-502DE1154B55}
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "spy", "..\spy\spy.vcxproj", "{2F5E24AE-0233-4B68-9F64-502DE1154B55}"
+	ProjectSection(ProjectDependencies) = postProject
+		{F142A341-5EE0-442D-A15F-98AE9B48DBAE} = {F142A341-5EE0-442D-A15F-98AE9B48DBAE}
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "3rdparty", "3rdparty", "{02EA681E-C7D8-13C7-8484-4AC65E1B71E8}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libMinHook", "..\3rdparty\minhook\build\VC17\libMinHook.vcxproj", "{F142A341-5EE0-442D-A15F-98AE9B48DBAE}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "share", "share", "{B30ECCA0-1DAC-410F-911D-72D5EE75C5BA}"
+	ProjectSection(SolutionItems) = preProject
+		..\share\share.h = ..\share\share.h
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x64 = Debug|x64
+		Debug|x86 = Debug|x86
+		Release|x64 = Release|x64
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{2F5E24AE-0233-4B68-9F64-502DE1154B55}.Debug|x64.ActiveCfg = Debug|x64
+		{2F5E24AE-0233-4B68-9F64-502DE1154B55}.Debug|x64.Build.0 = Debug|x64
+		{2F5E24AE-0233-4B68-9F64-502DE1154B55}.Debug|x86.ActiveCfg = Debug|Win32
+		{2F5E24AE-0233-4B68-9F64-502DE1154B55}.Debug|x86.Build.0 = Debug|Win32
+		{2F5E24AE-0233-4B68-9F64-502DE1154B55}.Release|x64.ActiveCfg = Release|x64
+		{2F5E24AE-0233-4B68-9F64-502DE1154B55}.Release|x64.Build.0 = Release|x64
+		{2F5E24AE-0233-4B68-9F64-502DE1154B55}.Release|x86.ActiveCfg = Release|Win32
+		{2F5E24AE-0233-4B68-9F64-502DE1154B55}.Release|x86.Build.0 = Release|Win32
+		{071F2998-347E-4D23-A71A-33739FE0BF89}.Debug|x64.ActiveCfg = Debug|x64
+		{071F2998-347E-4D23-A71A-33739FE0BF89}.Debug|x64.Build.0 = Debug|x64
+		{071F2998-347E-4D23-A71A-33739FE0BF89}.Debug|x86.ActiveCfg = Debug|Win32
+		{071F2998-347E-4D23-A71A-33739FE0BF89}.Debug|x86.Build.0 = Debug|Win32
+		{071F2998-347E-4D23-A71A-33739FE0BF89}.Release|x64.ActiveCfg = Release|x64
+		{071F2998-347E-4D23-A71A-33739FE0BF89}.Release|x64.Build.0 = Release|x64
+		{071F2998-347E-4D23-A71A-33739FE0BF89}.Release|x86.ActiveCfg = Release|Win32
+		{071F2998-347E-4D23-A71A-33739FE0BF89}.Release|x86.Build.0 = Release|Win32
+		{F142A341-5EE0-442D-A15F-98AE9B48DBAE}.Debug|x64.ActiveCfg = Debug|x64
+		{F142A341-5EE0-442D-A15F-98AE9B48DBAE}.Debug|x64.Build.0 = Debug|x64
+		{F142A341-5EE0-442D-A15F-98AE9B48DBAE}.Debug|x86.ActiveCfg = Debug|Win32
+		{F142A341-5EE0-442D-A15F-98AE9B48DBAE}.Debug|x86.Build.0 = Debug|Win32
+		{F142A341-5EE0-442D-A15F-98AE9B48DBAE}.Release|x64.ActiveCfg = Release|x64
+		{F142A341-5EE0-442D-A15F-98AE9B48DBAE}.Release|x64.Build.0 = Release|x64
+		{F142A341-5EE0-442D-A15F-98AE9B48DBAE}.Release|x86.ActiveCfg = Release|Win32
+		{F142A341-5EE0-442D-A15F-98AE9B48DBAE}.Release|x86.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{F142A341-5EE0-442D-A15F-98AE9B48DBAE} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {3FF77612-6446-40FF-9BF0-31F4FF9FE56A}
+	EndGlobalSection
+EndGlobal
