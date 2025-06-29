@@ -1,4 +1,4 @@
-# we-chat-mod
+# we-chat-helper
 
 ## 1. Usage
 - ![Usage](./doc/usage.png)
@@ -7,9 +7,9 @@
 - Visual Studio 2022
 
 ## 3. Function
-- [x] Hook wechat log message
-- [x] Hook send message content
-- [x] Hook receive message content
+- [x] Wechat log message
+- [x] Send message content
+- [x] Receive message content
 
 ## 4. Participate in contributing
 - Fork this repository
