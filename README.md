@@ -1,7 +1,7 @@
 # we-chat-mod
 
 ## 1. Usage
-- ![Usage](./doc/injector_ui.png)
+- ![Usage](./doc/usage.png)
 
 ## 2. Build
 - Visual Studio 2022
