@@ -42,7 +42,7 @@ __int64 __fastcall hookSendMsg(
         WX_SEND_MSG* pWxid = (WX_SEND_MSG*)a2;
         WX_SEND_MSG* pMsg = (WX_SEND_MSG*)a3;
 
-        OutputDebugByUdpW(
+        SendInfoToUdpSrvW(
             L"[spy] - [sendto] - [%ws]: %ws\n",
             LPCWSTR(pWxid->msg),
             LPCWSTR(pMsg->msg));
@@ -51,7 +51,7 @@ __int64 __fastcall hookSendMsg(
     }
     catch (...)
     {
-        OutputDebugByUdpW(
+        SendInfoToUdpSrvW(
             L"[spy] - Exception occurred in hookLogMsg\n");
         return NULL;
     }

@@ -50,13 +50,13 @@ char* __fastcall hookLogMsg(
         strncpy_s(pLogMsg, pOriLogMsg, len < 0x1000 ? len : 0x1000);
         std::string logStr(pLogMsg);
         std::wstring logWstr = String2Wstring(logStr);
-        OutputDebugByUdpW(logWstr.c_str());
+        SendInfoToUdpSrvW(logWstr.c_str());
 
         return pOriLogMsg;
     }
     catch (...)
     {
-        OutputDebugByUdpW(
+        SendInfoToUdpSrvW(
             L"[spy] - Exception occurred in hookLogMsg\n");
         return NULL;
     }

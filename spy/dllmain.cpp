@@ -51,7 +51,7 @@ InstallHook(
     // Connect udp socket to output debug
     CreateUdpConnection(pSpyCtx->listenPort);
 
-    OutputDebugByUdpW(
+    SendInfoToUdpSrvW(
         L"[spy] - Install hook\n");
 
     if (!isMinHookStarted)
@@ -75,14 +75,14 @@ InstallHook(
                         status = MH_CreateHook(pTargetFunc,
                             &hookLogMsg,
                             (LPVOID*)&pOriginalLogMsg);
-                        OutputDebugByUdpW(
+                        SendInfoToUdpSrvW(
                             L"[spy] - Hook log msg @ 0x%p\n",
                             pTargetFunc);
 
                         if (status == MH_OK)
                         {
                             status = MH_EnableHook(pTargetFunc);
-                            OutputDebugByUdpW(
+                            SendInfoToUdpSrvW(
                                 L"[spy] - Enable log msg status: 0x%x\n",
                                 status);
 
@@ -98,14 +98,14 @@ InstallHook(
                             &hookSendMsg,
                             (LPVOID*)&pOriSendMsg);
 
-                        OutputDebugByUdpW(
+                        SendInfoToUdpSrvW(
                             L"[spy] - Hook send msg @ 0x%p\n",
                             pTargetFunc);
 
                         if (status == MH_OK)
                         {
                             status = MH_EnableHook(pTargetFunc);
-                            OutputDebugByUdpW(
+                            SendInfoToUdpSrvW(
                                 L"[spy] - Enable send msg status: 0x%x\n",
                                 status);
                             isMinHookStarted = TRUE;
@@ -120,14 +120,14 @@ InstallHook(
                             &hookRecvMsg,
                             (LPVOID*)&pOriRecvMsg);
 
-                        OutputDebugByUdpW(
+                        SendInfoToUdpSrvW(
                             L"[spy] - Hook recv msg @ 0x%p\n",
                             pTargetFunc);
 
                         if (status == MH_OK)
                         {
                             status = MH_EnableHook(pTargetFunc);
-                            OutputDebugByUdpW(
+                            SendInfoToUdpSrvW(
                                 L"[spy] - Enable recv msg status: 0x%x\n",
                                 status);
                             isMinHookStarted = TRUE;
@@ -135,7 +135,7 @@ InstallHook(
                         break;
                     }
                     default:
-                        OutputDebugByUdpW(
+                        SendInfoToUdpSrvW(
                             L"[spy] - Unknown func type\n");
                         break;
                     }
@@ -150,7 +150,7 @@ __declspec(dllexport)
 void
 RemoveHook()
 {
-    OutputDebugByUdpW(
+    SendInfoToUdpSrvW(
         L"[spy] - Remove hook\n");
 
     if (isMinHookStarted)
