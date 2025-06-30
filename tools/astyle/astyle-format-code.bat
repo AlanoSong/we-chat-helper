@@ -1,0 +1,23 @@
+.\astyle.exe ^
+    ..\..\share\*.h ^
+    ..\..\spy\*.h ^
+    ..\..\spy\*.cpp ^
+    ..\..\helper\*.h ^
+    ..\..\helper\*.cpp ^
+    -n ^
+    --style=google ^
+    --attach-namespaces ^
+    --attach-classes ^
+    --attach-inlines ^
+    --attach-extern-c ^
+    --pad-oper ^
+    --unpad-paren ^
+    --pad-header ^
+    --align-pointer=name ^
+    --keep-one-line-blocks ^
+    --keep-one-line-statements ^
+    --break-return-type ^
+    --close-templates ^
+    --max-code-length=80 ^
+    --break-after-logical ^
+    --break-blocks=all

@@ -15,29 +15,27 @@ SOCKET g_sendSock = INVALID_SOCKET;
 #define GET_WSTRING(addr)       ((WCHAR *)(*(UINT64 *)(addr)))
 
 typedef
-struct
-{
+struct {
     unsigned char data[16];
 } fake_int128;
 
 std::string
 Wstring2String(
     std::wstring ws
-)
-{
-    if (ws.empty())
-    {
+) {
+    if (ws.empty()) {
         return std::string();
     }
+
     int sizeNeed = WideCharToMultiByte(
-        CP_UTF8,
-        0,
-        &ws[0],
-        (int)ws.size(),
-        NULL,
-        0,
-        NULL,
-        NULL);
+                       CP_UTF8,
+                       0,
+                       &ws[0],
+                       (int)ws.size(),
+                       NULL,
+                       0,
+                       NULL,
+                       NULL);
     std::string s(sizeNeed, 0);
     WideCharToMultiByte(
         CP_UTF8,
@@ -55,19 +53,18 @@ Wstring2String(
 std::wstring
 String2Wstring(
     std::string s
-)
-{
-    if (s.empty())
-    {
+) {
+    if (s.empty()) {
         return std::wstring();
     }
+
     int sizeNeed = MultiByteToWideChar(
-        CP_UTF8,
-        0,
-        &s[0],
-        (int)s.size(),
-        NULL,
-        0);
+                       CP_UTF8,
+                       0,
+                       &s[0],
+                       (int)s.size(),
+                       NULL,
+                       0);
     std::wstring ws(sizeNeed, 0);
     MultiByteToWideChar(
         CP_UTF8,
@@ -85,10 +82,8 @@ void
 SendInfoToUdpSrvW(
     CONST WCHAR* str,
     ...
-)
-{
-    if (g_sendSock == INVALID_SOCKET)
-    {
+) {
+    if (g_sendSock == INVALID_SOCKET) {
         return;
     }
 
@@ -107,16 +102,16 @@ SendInfoToUdpSrvW(
     // Convert wstring to UTF-8 for transmission
     char strBuffer[4096] = { 0 };
     int len = WideCharToMultiByte(
-        CP_UTF8,
-        0,
-        wstrBuffer,
-        -1,
-        strBuffer,
-        sizeof(strBuffer) - 1,
-        NULL,
-        NULL);
-    if (len > 0)
-    {
+                  CP_UTF8,
+                  0,
+                  wstrBuffer,
+                  -1,
+                  strBuffer,
+                  sizeof(strBuffer) - 1,
+                  NULL,
+                  NULL);
+
+    if (len > 0) {
         sendto(
             g_sendSock,
             strBuffer,

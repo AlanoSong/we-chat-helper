@@ -132,7 +132,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="helper_gui.cpp" />
+    <ClCompile Include="main_gui.cpp" />
     <ClCompile Include="socket_server.cpp" />
     <ClCompile Include="utils.cpp" />
   </ItemGroup>

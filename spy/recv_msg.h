@@ -22,8 +22,7 @@ typedef __int64(__fastcall* PFN_RECV_MSG)(
 
 static PFN_RECV_MSG pOriRecvMsg = NULL;
 
-typedef enum _WX_MSG_TYPE
-{
+typedef enum _WX_MSG_TYPE {
     TYPE_MOMENTS    = 0x00000000,
     TYPE_TXT        = 0x00000001,
     TYPE_PICTURE    = 0x00000003,
@@ -39,24 +38,29 @@ inline
 LPCWSTR
 MsgTypeToStr(
     WX_MSG_TYPE type
-)
-{
-    switch (type)
-    {
+) {
+    switch (type) {
     case TYPE_MOMENTS: return L"moments";
+
     case TYPE_TXT: return L"text";
+
     case TYPE_PICTURE: return L"picture";
+
     case TYPE_ADD_FRIEND: return L"add-friend";
+
     case TYPE_VIDEO: return L"video";
+
     case TYPE_POSITION: return L"position";
+
     case TYPE_REVOKE: return L"revoke";
+
     case TYPE_FILE: return L"file";
+
     default: return L"unknown";
     }
 }
 
-typedef struct
-{
+typedef struct {
     BOOL isFromSelf;
     BOOL isGroupMsg;
     ULONG msgType;
@@ -71,19 +75,18 @@ typedef struct
     std::wstring xml;
 } RECV_MSG;
 
-__int64 __fastcall hookRecvMsg(
+__int64 __fastcall
+hookRecvMsg(
     __int64 a1,
     __int64 a2
-)
-{
+) {
     __int64 pOriRet = 0;
-    if (pOriRecvMsg)
-    {
+
+    if (pOriRecvMsg) {
         pOriRet = pOriRecvMsg(a1, a2);
     }
 
-    try
-    {
+    try {
         RECV_MSG recvMsg = { 0 };
         recvMsg.msgId       = GET_QWORD(a2 + RECV_MSG_ID_OFFSET);
         recvMsg.msgType     = GET_DWORD(a2 + RECV_MSG_TYPE_OFFSET);
@@ -96,11 +99,11 @@ __int64 __fastcall hookRecvMsg(
 
         SendInfoToUdpSrvW(
             L"[spy] - [recv] - "
-            "[msg id]/[0x%x] - "
-            "[type]/[%ws] - "
-            "[self]/[%d] - "
-            "[room id]/[%ws] - "
-            "[content]/[%ws]\n",
+         "[msg id]/[0x%x] - "
+         "[type]/[%ws] - "
+         "[self]/[%d] - "
+         "[room id]/[%ws] - "
+         "[content]/[%ws]\n",
             recvMsg.msgId,
             MsgTypeToStr((WX_MSG_TYPE)recvMsg.msgType),
             recvMsg.isFromSelf,
@@ -108,9 +111,8 @@ __int64 __fastcall hookRecvMsg(
             recvMsg.content.c_str());
 
         return pOriRet;
-    }
-    catch (...)
-    {
+
+    } catch (...) {
         SendInfoToUdpSrvW(
             L"[spy] - Exception occurred in hookRecvMsg\n");
         return NULL;

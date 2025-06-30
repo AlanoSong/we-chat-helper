@@ -18,7 +18,7 @@
     <ClCompile Include="socket_server.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="helper_gui.cpp">
+    <ClCompile Include="main_gui.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="utils.cpp">
