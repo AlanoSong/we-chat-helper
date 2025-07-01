@@ -15,15 +15,18 @@ SOCKET g_sendSock = INVALID_SOCKET;
 #define GET_WSTRING(addr)       ((WCHAR *)(*(UINT64 *)(addr)))
 
 typedef
-struct {
+struct
+{
     unsigned char data[16];
 } fake_int128;
 
 std::string
 Wstring2String(
     std::wstring ws
-) {
-    if (ws.empty()) {
+)
+{
+    if (ws.empty())
+    {
         return std::string();
     }
 
@@ -53,8 +56,10 @@ Wstring2String(
 std::wstring
 String2Wstring(
     std::string s
-) {
-    if (s.empty()) {
+)
+{
+    if (s.empty())
+    {
         return std::wstring();
     }
 
@@ -82,8 +87,10 @@ void
 SendInfoToUdpSrvW(
     CONST WCHAR* str,
     ...
-) {
-    if (g_sendSock == INVALID_SOCKET) {
+)
+{
+    if (g_sendSock == INVALID_SOCKET)
+    {
         return;
     }
 
@@ -111,7 +118,8 @@ SendInfoToUdpSrvW(
                   NULL,
                   NULL);
 
-    if (len > 0) {
+    if (len > 0)
+    {
         sendto(
             g_sendSock,
             strBuffer,

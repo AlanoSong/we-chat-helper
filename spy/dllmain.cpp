@@ -17,23 +17,28 @@
 static BOOL isMinHookStarted = FALSE;
 
 static VOID
-CreateUdpConnection(USHORT listenPort) {
+CreateUdpConnection(USHORT listenPort)
+{
     WSADATA wsaData;
 
-    if (WSAStartup(MAKEWORD(2, 2), &wsaData) != 0) {
+    if (WSAStartup(MAKEWORD(2, 2), &wsaData) != 0)
+    {
         return;
     }
 
     g_sendSock = socket(AF_INET, SOCK_DGRAM, IPPROTO_UDP);
 
     g_serverAddr.sin_family = AF_INET;
-    g_serverAddr.sin_addr.s_addr = htonl(INADDR_LOOPBACK); // 127.0.0.1
+    g_serverAddr.sin_addr.s_addr = htonl(
+                                       INADDR_LOOPBACK); // 127.0.0.1
     g_serverAddr.sin_port = htons(listenPort);
 }
 
 static VOID
-CloseUdpConnection(VOID) {
-    if (g_sendSock != INVALID_SOCKET) {
+CloseUdpConnection(VOID)
+{
+    if (g_sendSock != INVALID_SOCKET)
+    {
         closesocket(g_sendSock);
         WSACleanup();
     }
@@ -44,7 +49,8 @@ __declspec(dllexport)
 void
 InstallHook(
     LPVOID args
-) {
+)
+{
     PSPY_CONTEXT pSpyCtx = (PSPY_CONTEXT)args;
     // Connect udp socket to output debug
     CreateUdpConnection(pSpyCtx->listenPort);
@@ -52,16 +58,22 @@ InstallHook(
     SendInfoToUdpSrvW(
         L"[spy] - Install hook\n");
 
-    if (!isMinHookStarted) {
-        if (MH_Initialize() == MH_OK) {
+    if (!isMinHookStarted)
+    {
+        if (MH_Initialize() == MH_OK)
+        {
             HMODULE hModule = GetModuleHandleA("WeChatWin.dll");
 
             MH_STATUS status = MH_OK;
 
-            for (ULONG idx = 0; idx < pSpyCtx->funcCount; idx++) {
-                if (pSpyCtx->funcList[idx].tryHookThis) {
-                    switch (pSpyCtx->funcList[idx].funcType) {
-                    case FUNC_TYPE_LOG_MSG: {
+            for (ULONG idx = 0; idx < pSpyCtx->funcCount; idx++)
+            {
+                if (pSpyCtx->funcList[idx].tryHookThis)
+                {
+                    switch (pSpyCtx->funcList[idx].funcType)
+                    {
+                    case FUNC_TYPE_LOG_MSG:
+                    {
                         LPVOID pTargetFunc = (PFN_LOG_MSG)(
                                                  (unsigned long long)hModule + LOG_MSG_OFFSET);
                         status = MH_CreateHook(pTargetFunc,
@@ -70,8 +82,8 @@ InstallHook(
                         SendInfoToUdpSrvW(
                             L"[spy] - Hook log msg @ 0x%p\n",
                             pTargetFunc);
-
-                        if (status == MH_OK) {
+                        if (status == MH_OK)
+                        {
                             status = MH_EnableHook(pTargetFunc);
                             SendInfoToUdpSrvW(
                                 L"[spy] - Enable log msg status: 0x%x\n",
@@ -79,22 +91,20 @@ InstallHook(
 
                             isMinHookStarted = TRUE;
                         }
-
                         break;
                     }
-
-                    case FUNC_TYPE_SEND_MSG: {
+                    case FUNC_TYPE_SEND_MSG:
+                    {
                         LPVOID pTargetFunc = (PFN_SEND_MSG)(
                                                  (unsigned long long)hModule + SEND_MSG_OFFSET);
                         status = MH_CreateHook(pTargetFunc,
                                                &hookSendMsg,
                                                (LPVOID*)&pOriSendMsg);
-
                         SendInfoToUdpSrvW(
                             L"[spy] - Hook send msg @ 0x%p\n",
                             pTargetFunc);
-
-                        if (status == MH_OK) {
+                        if (status == MH_OK)
+                        {
                             status = MH_EnableHook(pTargetFunc);
                             SendInfoToUdpSrvW(
                                 L"[spy] - Enable send msg status: 0x%x\n",
@@ -105,18 +115,19 @@ InstallHook(
                         break;
                     }
 
-                    case FUNC_TYPE_RECV_MSG: {
+                    case FUNC_TYPE_RECV_MSG:
+                    {
                         LPVOID pTargetFunc = (PFN_SEND_MSG)(
                                                  (unsigned long long)hModule + RECV_MSG_OFFSET);
                         status = MH_CreateHook(pTargetFunc,
                                                &hookRecvMsg,
                                                (LPVOID*)&pOriRecvMsg);
-
                         SendInfoToUdpSrvW(
                             L"[spy] - Hook recv msg @ 0x%p\n",
                             pTargetFunc);
 
-                        if (status == MH_OK) {
+                        if (status == MH_OK)
+                        {
                             status = MH_EnableHook(pTargetFunc);
                             SendInfoToUdpSrvW(
                                 L"[spy] - Enable recv msg status: 0x%x\n",
@@ -141,11 +152,13 @@ InstallHook(
 extern "C"
 __declspec(dllexport)
 void
-RemoveHook() {
+RemoveHook()
+{
     SendInfoToUdpSrvW(
         L"[spy] - Remove hook\n");
 
-    if (isMinHookStarted) {
+    if (isMinHookStarted)
+    {
         MH_DisableHook(MH_ALL_HOOKS);
         MH_Uninitialize();
 
@@ -164,8 +177,10 @@ DllMain(
     HMODULE hModule,
     DWORD  reason,
     LPVOID lpReserved
-) {
-    switch (reason) {
+)
+{
+    switch (reason)
+    {
     case DLL_PROCESS_ATTACH:
     case DLL_THREAD_ATTACH:
     case DLL_THREAD_DETACH:

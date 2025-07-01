@@ -1,7 +1,8 @@
 #pragma once
 #include "common.h"
 
-const unsigned long long SEND_MSG_OFFSET = 0x00000000022D4A90;
+const unsigned long long SEND_MSG_OFFSET =
+    0x00000000022D4A90;
 
 typedef __int64(__fastcall* PFN_SEND_MSG)(
     __int64 a1,
@@ -15,7 +16,8 @@ typedef __int64(__fastcall* PFN_SEND_MSG)(
 
 static PFN_SEND_MSG pOriSendMsg = NULL;
 
-struct WX_SEND_MSG {
+struct WX_SEND_MSG
+{
     wchar_t *msg;
     int len;
 };
@@ -29,10 +31,13 @@ hookSendMsg(
     int a5,
     int a6,
     int a7,
-    __int64 a8) {
-    __int64 pOriRet = pOriSendMsg(a1, a2, a3, a4, a5, a6, a7, a8);
+    __int64 a8)
+{
+    __int64 pOriRet = pOriSendMsg(a1, a2, a3, a4, a5, a6, a7,
+                                  a8);
 
-    try {
+    try
+    {
         char pDbgMsg[0x1000] = { 0 };
 
         WX_SEND_MSG* pWxid = (WX_SEND_MSG*)a2;
@@ -44,8 +49,10 @@ hookSendMsg(
             LPCWSTR(pMsg->msg));
 
         return pOriRet;
+    }
 
-    } catch (...) {
+    catch (...)
+    {
         SendInfoToUdpSrvW(
             L"[spy] - Exception occurred in hookLogMsg\n");
         return NULL;

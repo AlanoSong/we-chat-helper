@@ -2,7 +2,8 @@
 
 #include "common.h"
 
-const unsigned long long LOG_MSG_OFFSET = 0x0000000002627590;
+const unsigned long long LOG_MSG_OFFSET =
+    0x0000000002627590;
 
 typedef char *(__fastcall* PFN_LOG_MSG)(
     __int64 a1,
@@ -33,12 +34,16 @@ hookLogMsg(
     fake_int128* a9,
     fake_int128* a10,
     fake_int128* a11,
-    fake_int128* a12) {
-    char *pOriLogMsg = pOriginalLogMsg(a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11,
+    fake_int128* a12)
+{
+    char *pOriLogMsg = pOriginalLogMsg(a1, a2, a3, a4, a5, a6,
+                                       a7, a8, a9, a10, a11,
                                        a12);
 
-    try {
-        if (pOriLogMsg == NULL || (ULONGLONG)pOriLogMsg == 0x1) {
+    try
+    {
+        if (pOriLogMsg == NULL || (ULONGLONG)pOriLogMsg == 0x1)
+        {
             return pOriLogMsg;
         }
 
@@ -51,7 +56,10 @@ hookLogMsg(
 
         return pOriLogMsg;
 
-    } catch (...) {
+    }
+
+    catch (...)
+    {
         SendInfoToUdpSrvW(
             L"[spy] - Exception occurred in hookLogMsg\n");
         return NULL;

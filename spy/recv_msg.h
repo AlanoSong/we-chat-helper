@@ -1,7 +1,8 @@
 #pragma once
 #include "common.h"
 
-const unsigned long long RECV_MSG_OFFSET = 0x000000000214C6C0;
+const unsigned long long RECV_MSG_OFFSET =
+    0x000000000214C6C0;
 
 #define RECV_MSG_ID_OFFSET          0x30
 #define RECV_MSG_TYPE_OFFSET        0x38
@@ -22,7 +23,8 @@ typedef __int64(__fastcall* PFN_RECV_MSG)(
 
 static PFN_RECV_MSG pOriRecvMsg = NULL;
 
-typedef enum _WX_MSG_TYPE {
+typedef enum _WX_MSG_TYPE
+{
     TYPE_MOMENTS    = 0x00000000,
     TYPE_TXT        = 0x00000001,
     TYPE_PICTURE    = 0x00000003,
@@ -38,29 +40,24 @@ inline
 LPCWSTR
 MsgTypeToStr(
     WX_MSG_TYPE type
-) {
-    switch (type) {
+)
+{
+    switch (type)
+    {
     case TYPE_MOMENTS: return L"moments";
-
     case TYPE_TXT: return L"text";
-
     case TYPE_PICTURE: return L"picture";
-
     case TYPE_ADD_FRIEND: return L"add-friend";
-
     case TYPE_VIDEO: return L"video";
-
     case TYPE_POSITION: return L"position";
-
     case TYPE_REVOKE: return L"revoke";
-
     case TYPE_FILE: return L"file";
-
     default: return L"unknown";
     }
 }
 
-typedef struct {
+typedef struct
+{
     BOOL isFromSelf;
     BOOL isGroupMsg;
     ULONG msgType;
@@ -79,14 +76,17 @@ __int64 __fastcall
 hookRecvMsg(
     __int64 a1,
     __int64 a2
-) {
+)
+{
     __int64 pOriRet = 0;
 
-    if (pOriRecvMsg) {
+    if (pOriRecvMsg)
+    {
         pOriRet = pOriRecvMsg(a1, a2);
     }
 
-    try {
+    try
+    {
         RECV_MSG recvMsg = { 0 };
         recvMsg.msgId       = GET_QWORD(a2 + RECV_MSG_ID_OFFSET);
         recvMsg.msgType     = GET_DWORD(a2 + RECV_MSG_TYPE_OFFSET);
@@ -112,7 +112,10 @@ hookRecvMsg(
 
         return pOriRet;
 
-    } catch (...) {
+    }
+
+    catch (...)
+    {
         SendInfoToUdpSrvW(
             L"[spy] - Exception occurred in hookRecvMsg\n");
         return NULL;

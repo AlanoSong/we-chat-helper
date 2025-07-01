@@ -5,7 +5,7 @@
     ..\..\helper\*.h ^
     ..\..\helper\*.cpp ^
     -n ^
-    --style=google ^
+    --style=bsd ^
     --attach-namespaces ^
     --attach-classes ^
     --attach-inlines ^
